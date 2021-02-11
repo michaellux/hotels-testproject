@@ -9,6 +9,8 @@ import { HotelsPage } from '../pages/hotels/hotels';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { FormsModule }   from '@angular/forms';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +20,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

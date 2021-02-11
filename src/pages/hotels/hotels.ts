@@ -15,6 +15,22 @@ export class HotelsPage {
     address: string,
     phone: string
   }>;
+  filteredHotels: Array<{
+    imageUrl: string,
+    title: string,
+    description: string,
+    roomCost: number,
+    hasParking: boolean,
+    address: string,
+    phone: string
+  }>;
+
+  minPriceOfHotel: number;
+  maxPriceOfHotel: number;
+
+  startPriceIntentionOfuser: number;
+  finishPriceIntentionOfuser: number;
+  hasParkingIntentionOfuser: boolean;
 
   constructor(public navCtrl: NavController) {
     this.hotels = [
@@ -109,5 +125,85 @@ export class HotelsPage {
         phone: ''
       }
     ]
+
+    this.filteredHotels = JSON.parse(JSON.stringify(this.hotels));
+
+    this.minPriceOfHotel = this.knowMaxAndMinPriceOfHotel().minValue;
+    this.maxPriceOfHotel = this.knowMaxAndMinPriceOfHotel().maxValue;
+
+    this.initStartUIValues();
+  }
+
+  initStartUIValues() {
+    this.startPriceIntentionOfuser = this.minPriceOfHotel;
+    this.finishPriceIntentionOfuser = this.maxPriceOfHotel;
+    this.hasParkingIntentionOfuser = false;
+  }
+
+  knowMaxAndMinPriceOfHotel() {
+    let priceInterval = {
+      minValue: null,
+      maxValue: null
+    }
+
+    priceInterval.minValue = Math.min.apply(Math, this.hotels.map(function(o) { 
+      return o.roomCost;  
+    }));
+
+    priceInterval.maxValue = Math.max.apply(Math, this.hotels.map(function(o) { 
+      return o.roomCost;  
+    }));
+
+    return priceInterval;
+  }
+
+  handlePriceInput() {
+    this.resetHotels();
+    const isNecessityCheckPriceValidInterval = !this.checkEmptyValue();
+    if (isNecessityCheckPriceValidInterval) {
+      this.filterHotels(this.checkPriceValidInterval());
+    } else {
+      this.filterHotels(true);
+    }
+  }
+
+  handleParkingCheckBox() {
+    this.resetHotels();
+    this.filterHotels(true);
+  }
+
+  resetHotels() {
+    this.filteredHotels = JSON.parse(JSON.stringify(this.hotels));
+  }
+
+  filterHotels(validInterval: boolean) {
+    if (validInterval) {
+      this.filteredHotels = this.filteredHotels.filter((hotel) => {
+      const filterParkingCondition = (this.hasParkingIntentionOfuser) ? this.filterByParking(hotel.hasParking) : true;
+        return this.filterByPrice(hotel.roomCost) && filterParkingCondition;
+      });
+    }
+    else {
+      this.filteredHotels = [];
+    }
+  }
+
+  filterByPrice(roomCost) {
+    const filterStartPriceCondition = (Number(this.startPriceIntentionOfuser) === 0) ? true : (roomCost >= Number(this.startPriceIntentionOfuser));
+    const filterFinishPriceCondition = (Number(this.finishPriceIntentionOfuser) === 0) ? true : (roomCost <= Number(this.finishPriceIntentionOfuser));
+
+    return (filterStartPriceCondition && filterFinishPriceCondition);
+  }
+
+  filterByParking(hasParking) {
+    return (hasParking === this.hasParkingIntentionOfuser);
+  }
+
+  checkPriceValidInterval() {
+    return (Number(this.startPriceIntentionOfuser) <= Number(this.finishPriceIntentionOfuser));
+  }
+
+  checkEmptyValue() {
+    return (!this.startPriceIntentionOfuser || !this.finishPriceIntentionOfuser)
   }
 }

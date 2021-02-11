@@ -16,8 +16,9 @@
             <ion-label>от</ion-label>
             <ion-input
               type="number"
-              placeholder="[здесь будет самая низкая цена]"
               min="0"
+              [(ngModel)]="startPriceIntentionOfuser"
+              (input)="handlePriceInput()"
             ></ion-input>
           </ion-item>
         </ion-col>
@@ -26,8 +27,9 @@
             <ion-label>до</ion-label>
             <ion-input
               type="number"
-              placeholder="[здесь будет самая высокая цена]"
               min="0"
+              [(ngModel)]="finishPriceIntentionOfuser"
+              (input)="handlePriceInput()"
             ></ion-input>
           </ion-item>
         </ion-col>
@@ -37,14 +39,17 @@
       <ion-col col-12>
         <ion-item>
           <ion-label>Наличие парковки обязательно</ion-label>
-          <ion-checkbox color="dark" checked="true"></ion-checkbox>
+          <ion-checkbox color="dark" checked="true"
+          [(ngModel)]="hasParkingIntentionOfuser"
+          (ionChange)="handleParkingCheckBox()">
+          </ion-checkbox>
         </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-list>
-    <button ion-item *ngFor="let hotel of hotels">
+    <button ion-item *ngFor="let hotel of filteredHotels">
       <ion-avatar item-start>
         <img src="{{hotel.imageUrl}}" />
       </ion-avatar>
