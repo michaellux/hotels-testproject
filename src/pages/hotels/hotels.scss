@@ -1,3 +1,42 @@
 page-hotels {
+  
+}
+
+.hotel {
+  ion-card {
+    position: relative;
+    text-align: left;
+    padding: 2rem;
+  }
+
+  .card__info {
+    margin: 2rem;
+  }
+
+  .card__title {
+    font-size: 3rem;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .card__description {
+    margin-bottom: 1rem;
+  }
+
+  .card__price {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .card__parkingstatus {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .card__address {
+    display: block;
+    margin-bottom: 1rem;
+  }
 
 }

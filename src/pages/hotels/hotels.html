@@ -49,7 +49,7 @@
   </ion-grid>
 
   <ion-list>
-    <button ion-item *ngFor="let hotel of filteredHotels">
+    <button ion-item *ngFor="let hotel of filteredHotels" (click)="openHotelPage(hotel)">
       <ion-avatar item-start>
         <img src="{{hotel.imageUrl}}" />
       </ion-avatar>

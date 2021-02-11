@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ hotel.title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="hotel">
+  <ion-card class="hotel__card card ion-padding">
+    <img class="card__image ion-padding" src="{{ hotel.imageUrl }}" />
+    <div class="card__info">
+      <h1 class="card__title">{{ hotel.title }}</h1>
+      <h2 class="card__description">{{ hotel.description }}</h2>
+      <span class="card__price">{{ hotel.roomCost | currency:'RUB':'' }}</span>
+      <span class="card__parkingstatus" *ngIf="hotel.hasParking" >Есть парковка</span>
+      <span class="card__parkingstatus" *ngIf="!hotel.hasParking" >Нет парковки</span>
+      <span class="card__address">{{ hotel.address }}</span>
+      <span class="card__phone">{{ hotel.phone }}</span>
+    </div>
+  </ion-card>
+</ion-content>

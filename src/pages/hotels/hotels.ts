@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { HotelPage } from '../hotel/hotel';
 @Component({
   selector: 'page-hotels',
   templateUrl: 'hotels.html'
@@ -205,5 +205,13 @@ export class HotelsPage {
 
   checkEmptyValue() {
     return (!this.startPriceIntentionOfuser || !this.finishPriceIntentionOfuser)
+  }
+
+  openHotelPage(hotel) {
+    console.log(this);
+    console.log(this.navCtrl);
+    console.log(HotelPage);
+    console.log(hotel);
+    this.navCtrl.push(HotelPage, {hotel: hotel});
   }
 }
