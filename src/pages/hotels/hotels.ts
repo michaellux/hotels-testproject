@@ -1,29 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HotelPage } from '../hotel/hotel';
+import { HotelPage, Hotel } from '../hotel/hotel';
 @Component({
   selector: 'page-hotels',
   templateUrl: 'hotels.html'
 })
 export class HotelsPage {
-  hotels: Array<{
-    imageUrl: string,
-    title: string,
-    description: string,
-    roomCost: number,
-    hasParking: boolean,
-    address: string,
-    phone: string
-  }>;
-  filteredHotels: Array<{
-    imageUrl: string,
-    title: string,
-    description: string,
-    roomCost: number,
-    hasParking: boolean,
-    address: string,
-    phone: string
-  }>;
+  hotels: Array<Hotel>;
+  filteredHotels: Array<Hotel>;
 
   minPriceOfHotel: number;
   maxPriceOfHotel: number;
@@ -208,10 +192,6 @@ export class HotelsPage {
   }
 
   openHotelPage(hotel) {
-    console.log(this);
-    console.log(this.navCtrl);
-    console.log(HotelPage);
-    console.log(hotel);
     this.navCtrl.push(HotelPage, {hotel: hotel});
   }
 }
